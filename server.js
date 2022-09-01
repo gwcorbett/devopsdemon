@@ -10,6 +10,21 @@ app.use(cors())
 
 app.use(express.json())
 
+// include and initialize the rollbar library with your access token
+var Rollbar = require('rollbar')
+var rollbar = new Rollbar({
+  accessToken: ROLLBARTOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+})
+
+// record a generic message and send it to Rollbar
+rollbar.log('Hello world!')
+rollbar.error("An Error Happened")
+rollbar.info("Rollbar sucks")
+rollbar.warning("Your fish is drowning")
+rollbar.critical("Critical HIT!")
+
 const students = ['Jimmy', 'Timothy', 'Jimothy']
 
 app.get('/', (req, res) => {
